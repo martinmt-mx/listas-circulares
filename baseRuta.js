@@ -1,4 +1,4 @@
-export default class baseRuta{
+export default class BaseRuta{
     constructor(){
         this.inicio = null
         this.tamano = 0
@@ -51,7 +51,7 @@ export default class baseRuta{
   
     }
   
-    buscarhBase(base) {
+    buscarBase(base) {
         if(this.inicio !== null){
             let aux = this.inicio
             let final = false
@@ -84,5 +84,6 @@ export default class baseRuta{
                 final = true
             }
         }
+        return lista 
     }
 }

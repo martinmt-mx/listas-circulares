@@ -2,10 +2,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Central de rutas</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <h1>Central de rutas</h1>
+    <label id="mensajes">---</label>
+    <div>
+        <h2>Crear base</h2>
+        <input type="text" id="baseAgregar" placeholder="Nombre de Base"/>
+        <input type="number" id="tiempoBase" name="Producto" placeholder="Tiempo de recorrido"/>
+        <input type="button" id="btnAgregar" value="Agregar"/><br>
+    </div>
+    <div>
+        <h2>Buscar base</h2>
+        <input type="text" id="baseBuscar" placeholder="Nombre de Base"/>
+        <input type="button" id="btnBuscar" value="Buscar"/><br>
+    </div>
+    <div>
+        <h2>Eliminar base</h2>
+        <input type="text" id="baseEliminar" placeholder="Nombre de Base"/>
+        <input type="button" id="btnEliminar" value="Eliminar"/><br>
+    </div>
+    <div>
+        <h2>Listar bases</h2>
+        <input type="button" id="btnListar" value="Listar"/><br>
+    </div>
+    <div>
+        <h2>Recorrido</h2>
+        <input type="text" id="baseInicio" placeholder="Nombre de Base Inicio"/>
+        <input type="text" id="horaInicio" placeholder="Hora de inico  "/>
+        <input type="text" id="horaFin" placeholder="Hora final"/>
+        <input type="button" id="btnRecorrido" value="Crear Recorrido"/><br>
+    </div>
 </body>
 <script src="botones.js" type="module"></script>
 </html>
