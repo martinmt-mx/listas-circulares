@@ -4,62 +4,69 @@ export default class BaseRuta{
         this.tamano = 0
     }
   
-    agregarBase(base){
+    agregarBase(ruta){
         if(this.inicio === null){
-            this.inicio = base
-            base.siguiente = this.inicio
+            this.inicio = ruta
+            ruta.siguiente = this.inicio
         }else{
             let aux = this.inicio
             while(aux.siguiente !== this.inicio){
                 aux = aux.siguiente
             }
-            aux.siguiente = base
-            base.siguiente = this.inicio
+            aux.siguiente = ruta
+            ruta.siguiente = this.inicio
         }
         this.tamano++
-        return base.nombre
+        return ruta.nombre
     }
   
-    eliminarBase(base) {
+    eliminarBase(ruta) {
         let aux = this.inicio
-        if(this.tamano == 1 && aux.nombre === base){
+        if(this.tamano == 1 && aux.nombre === ruta){
             this.inicio = null
             this.tamano--
-            return base
+            let datosBase = [ruta, aux.minutos]
+            return datosBase
         }
-
-        if(aux.nombre == base){
-            this.inicio = aux.siguiente
-            let temp = this.inicio
-            while(temp.siguiente.nombre !== base){
-                temp = temp.siguiente
+        
+        if(this.inicio !== null){
+            let anterior = false
+            let final = false
+            let i = 0
+            while(final == false){
+                if(aux.nombre == ruta){
+                    if(anterior == false){
+                        this.inicio = aux.siguiente
+                        let datosBase = [ruta, aux.minutos]
+                        this.tamano--
+                        return datosBase
+                    }else{
+                        anterior.siguiente = aux.siguiente
+                        let datosBase = [ruta, aux.minutos]
+                        this.tamano--
+                        return datosBase
+                    }
+                }
+                anterior = aux
+                aux = aux.siguiente
+                i++
+                if(i>this.tamano){
+                    return false
+                }
             }
-            this.tamano--
-            temp.siguiente = this.inicio
-            return base
         }
-
-        else {
-            let temp = this.inicio
-            while(temp.siguiente.nombre !== base){
-                temp = temp.siguiente
-            }
-            temp.siguiente = temp.siguiente.siguiente
-            this.tamano--
-            return base
-        }
-  
+        return false
     }
   
-    buscarBase(base) {
+    buscarBase(ruta) {
         if(this.inicio !== null){
             let aux = this.inicio
             let final = false
             let i = 0
             while(final == false){
-                if(aux.nombreBase == base){
+                if(aux.nombre == ruta){
                     final = true
-                    return base
+                    return aux
                 }
                 aux = aux.siguiente
                 i++
@@ -72,18 +79,32 @@ export default class BaseRuta{
     }
   
     listar() {
+        if(this.inicio == null) return false
         let lista = ""
-        if(this.inicio = null) return false
-        
         let aux = this.inicio
-        let final = false
-        while(final == false){
-            lista += `${aux.producto}, `
+        let final = false;
+        while(!final){
+            lista += `${aux.nombre}, `
             aux = aux.siguiente
             if(aux.nombre === this.inicio.nombre){
                 final = true
             }
         }
-        return lista 
+        lista += "Fin de la lista"
+        return lista
+    }
+
+    recorrido(base, horaInicio, horaFinal){
+        let recorrido = ""
+        let aux = this.buscarBase(base)
+        let hora = Number(horaInicio)
+        while(hora < horaFinal){
+            recorrido += `Ruta: ${aux.nombre}, Tiempo: ${hora} - `
+            console.log("holi si entró")
+            aux = aux.siguiente;
+            hora += Number(aux.minutos)
+        }
+        recorrido += `Ruta: ${aux.nombre}, Tiempo: ${hora} - `
+        return recorrido
     }
 }

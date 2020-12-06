@@ -1,38 +1,61 @@
-import Base from "./base.js"
-import BaseRuta from "./base.js"
+import Ruta from "./ruta.js"
+import BaseRuta from "./baseRuta.js"
 let btnAgregar = document.querySelector("#btnAgregar")
-let baseBuscar = document.querySelector("#baseBuscar")
-let baseEliminar = document.querySelector("#baseEliminar")
+let btnBuscar = document.querySelector("#btnBuscar")
+let btnEliminar = document.querySelector("#btnEliminar")
 let btnListar = document.querySelector("#btnListar")
 let btnRecorrido = document.querySelector("#btnRecorrido")
 let mensajes = document.querySelector("#mensajes")
+var baseRuta = new BaseRuta()
 
+let r1 = new Ruta("r1", 11)
+let r2 = new Ruta("r2", 12)
+let r3 = new Ruta("r3", 13)
+baseRuta.agregarBase(r1)
+baseRuta.agregarBase(r2)
+baseRuta.agregarBase(r3)
 btnAgregar.addEventListener("click", () => {
-    let nombreBase = document.querySelector('#nombreBase').value
+    let nombreBase = document.querySelector('#baseNombre').value
     let tiempo = Number(document.querySelector('#tiempoBase').value)
-    let base = new Base(nombreBase, tiempo)
-    BaseRuta.agregarBase(base)
+    let ruta = new Ruta(nombreBase, tiempo)
+    baseRuta.agregarBase(ruta)
     mensajes.innerHTML = `Se agregó ${nombreBase}`
 })
 
-baseBuscar.addEventListener("click", () => {
+btnBuscar.addEventListener("click", () => {
     let baseBuscar = document.querySelector("#baseBuscar").value
-    let base = BusBase.searchBase(baseBuscar)
-    mensajes.innerHTML = `Se agregó ${base}`
+    let base = baseRuta.buscarBase(baseBuscar)
+    if(base == false){
+        mensajes.innerHTML = `No se encontró la base`
+    }else{
+        mensajes.innerHTML = `Se encontró ${base.nombre}, su tiempo de recorrido es ${base.minutos} minutos`
+    }
+    
 });
 
-baseEliminar.addEventListener("click", () => {
+btnEliminar.addEventListener("click", () => {
     let baseEliminar = document.querySelector("#baseEliminar").value
-    BaseRuta.baseEliminar(baseEliminar)
+    let base = baseRuta.eliminarBase(baseEliminar)
+    if(base == false){
+        mensajes.innerHTML = `No se encontró la base`
+    }else{
+        mensajes.innerHTML = `Se eliminó ${base[0]}, su tiempo de recorrido era ${base[1]} minutos`
+    }
 });
 
 btnListar.addEventListener("click", () => {
-    busqueda = BaseRuta.listar()
+    let lista = baseRuta.listar()
+    if(lista == false){
+        mensajes.innerHTML = `No hay rutas`
+    }else{
+        mensajes.innerHTML = `Lista de rutas: ${lista}`
+    }
 });
 
 btnRecorrido.addEventListener("click", () => {
-    let inicio = document.querySelector("#horaInicioo").value
-    let tiempo = document.querySelector("#horaFin").value   
-    let final = document.querySelector("#horaFin").value
-    BaseRuta.crearRecorrido(inicio, tiempo, endTime.final)
+    let rutaInicio = document.querySelector("#rutaInicio").value
+    let horaInicio = document.querySelector("#horaInicio").value   
+    let horaFinal = document.querySelector("#horaFin").value
+    let recorrido = baseRuta.recorrido(rutaInicio, horaInicio, horaFinal)
+    mensajes.innerHTML = recorrido
 });
